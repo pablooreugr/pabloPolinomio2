@@ -280,7 +280,7 @@ def guardameLaGrafica(nombreArchivo, resultados, nombreEjeX, nombreEjeY, nombreI
     #plt.xlim([0.2, 1.55]) 
     #plt.ylim([0.9, 6.5]) 
     plt.xlabel(r'${}$'.format(nombreEjeX),fontsize=25) 
-    plt.ylabel(r'${}$'.format(nombreEjeY)vv,fontsize=25) 
+    plt.ylabel(r'${}$'.format(nombreEjeY),fontsize=25) 
     plt.legend(loc='best',fontsize=25) 
  
     # Este comando permite modificar el grosor de los ejes: 
