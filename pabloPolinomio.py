@@ -33,27 +33,12 @@ def FuncionPolinomicaLista(x, gradoDelPolinomio, listaDelPolinomio, listaDeCoefi
     
     return resultado
 
-def hazmeLaRegresion(nombreArchivo, grado):
+def hazmeLaRegresion(nombreArchivo, grado, lista):
     datos = pd.read_csv(nombreArchivo, delimiter=',', header=0, names=['x', 'dx', 'y', 'dy'])
     print(f'----------- Se han abiero los datos de {nombreArchivo} -----------')
     #Aqui se puede elegir el tipo de ajuste del que se quiere utilizar de polinomio
     gradoMaxDelPolinomio = grado
-    tipoDePolinomio = []
-    print("Escribe S si quiere aceptarlo, y N si no.")
-    print()
-    puedeSalir = False
-    for i in range(gradoMaxDelPolinomio+1):
-        puedeSalir = False
-        while(puedeSalir == False):
-            valorQuerido = input(f"Quieres un valor x^({i}): ")
-            valorQuerido = valorQuerido.lower()
-            if(valorQuerido == 's' or valorQuerido == "n"):
-                if(valorQuerido == 's'):
-                    tipoDePolinomio.append(True)
-                else:
-                    tipoDePolinomio.append(False)
-                puedeSalir = True
-
+    tipoDePolinomio = lista
 #Cojo vectores de los datos que necesite
     vectorDatosX = datos['x']
     vectorDatosDX = datos['dx']
@@ -181,13 +166,13 @@ def hazmeLaRegresion(nombreArchivo, grado):
     print(f"Pearson:\t{corr}")
     print("")
 
-    return [listaDeCoeficientes, listaErrores, chiTeorico, chiExperimental, chiExperimentalRed, corr]
+    return [listaDeCoeficientes, listaErrores, chiTeorico, chiExperimental, chiExperimentalRed, corr, lista]
 
 
 def guardameElCSV(resultados, nombreArchivo):
 
     resultado = pd.DataFrame({
-        'coeficientes': resultados[0],
+        'coeficientes': [coef[0] for coef in resultados[0]],
         'erroresCof': resultados[1],
         'chiTeor': resultados[2],
         'chiExp': resultados[3],
@@ -202,8 +187,11 @@ def guardameElCSV(resultados, nombreArchivo):
 def representacionPolinomica(x, resultados):
     resultado = 0
     grado = 0
-    for i in resultados[0]:
-        resultado += i[0] *(x**grado)
+    ind = 0
+    for i in resultados[6]:
+        if(i == True):
+            resultado += resultados[0][ind][0] * (x**grado)
+            ind += 1
         grado += 1
     
     return resultado
