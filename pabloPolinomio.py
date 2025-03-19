@@ -263,7 +263,7 @@ def guardameLaGrafica(nombreArchivo, resultados, nombreEjeX, nombreEjeY, nombreI
 
     fig=plt.figure(figsize=[18,12]) 
     ax=fig.gca() 
-    plt.errorbar(datos.x, datos.y, xerr=datos.dx, yerr=datos.dy, fmt=f'{colorData}.', label='data', linewidth=3) 
+    plt.errorbar(vectorDatosX, vectorDatosY, xerr=vectorDatosDX, yerr=vectorDatosDY, fmt=f'{colorData}.', label='data', linewidth=3) 
     plt.plot(puntosDeLineaX, puntosLineaY, f'{colorFit}-', label='fit',linewidth=4.0) 
     #plt.xlim([0.2, 1.55]) 
     #plt.ylim([0.9, 6.5]) 
